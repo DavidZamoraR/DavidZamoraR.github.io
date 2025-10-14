@@ -1,0 +1,11 @@
+main:
+  - title: "Consultorías"
+    url: /consultorias/
+  - title: "Visualizaciones"
+    url: /visualizaciones/
+  - title: "Publicaciones"
+    url: /publicaciones/
+  - title: "CV"
+    url: /cv/
+  - title: "Contacto"
+    url: /contacto/

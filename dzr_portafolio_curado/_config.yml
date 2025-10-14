@@ -1,0 +1,50 @@
+title: "David Zamora Ramírez"
+description: "Consultor en análisis de datos y SIG. Visualizaciones, evaluación y políticas públicas."
+url: "https://davidzamorar.github.io"
+lang: es
+timezone: America/Bogota
+
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "dark"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-include-cache
+
+include:
+  - "_pages"
+
+search: true
+search_full_content: true
+
+collections:
+  consultorias:
+    output: true
+    permalink: /consultorias/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: single
+      author_profile: false
+  - scope:
+      path: ""
+      type: "consultorias"
+    values:
+      layout: single
+      author_profile: false
+      classes: wide
+      read_time: false
+      show_date: true
+
+author:
+  name: "David Zamora Ramírez"
+  avatar: /assets/imgs/avatar.png
+  bio: "Sociólogo (Univalle) y Especialista en SIG. Consultor en datos y cartografía aplicada a seguridad, elecciones y gestión pública."
+
+encoding: "utf-8"
