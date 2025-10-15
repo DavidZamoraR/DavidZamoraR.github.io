@@ -28,3 +28,6 @@ Desarrollo **modelos, cartografías y tableros** para decisión pública: seguri
 - [Política Pública de Reconciliación para la Paz – Cali](/consultorias/2024-pprp-cali/)
 - [Cartografía CRIC y análisis territorial](/consultorias/2023-cric-cartografia/)
 - [Elecciones 2023 – Cali: geovisores y storytelling](/consultorias/2022-elecciones-cali/)
+
+<script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
+

@@ -1,292 +1,64 @@
-/* ==========================================================================
-   David Zamora · Custom UI (Minimal Mistakes)
-   - Estética dark data-driven
-   - Accesibilidad AA
-   - Tipografía limpia, cards, tablas de datos, iframes responsive, formularios
-   ========================================================================== */
+/* ===========================
+   custom.scss (reemplazo total)
+   =========================== */
 
-/* --------- Design tokens (CSS variables) --------- */
-:root {
-  /* Colores base (dark) */
-  --bg:        #0b1220;
-  --panel:     #0f172a;
-  --elev:      #111827;
-  --line:      #1f2937;
-  --text:      #e5e7eb;
-  --muted:     #94a3b8;
+/* Tus reglas originales (las conservo) */
+.page__title { letter-spacing: .2px; }
+.grid__item .archive__item-excerpt { font-size: .95rem; }
 
-  /* Marca y acentos */
-  --brand:     #22d3ee; /* cian */
-  --brand-2:   #2dd4bf; /* teal */
-  --warn:      #f59e0b; /* amber */
-  --ok:        #22c55e; /* green */
+/* Diseño "data-driven" */
+:root{
+  --maxw: 1080px;
+  --gap: 1rem;
+  --radius: 14px;
+  --shadow: 0 6px 24px rgba(0,0,0,.08);
+  --panel: #11151a;
+  --text: #e8edf2;
+  --muted: #94a3b8;
+  --link: #4ea1ff;
+  --accent: #00b894;
+}
+html{scroll-behavior:smooth}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:1.25rem;}
 
-  /* Estado */
-  --link:      #7dd3fc;
-  --link-hover:#38bdf8;
-  --selection: rgba(34, 211, 238, .25);
+.page__title{ font-weight:800; margin-bottom:.4em; }
+.lede{ font-size:1.08rem; color:var(--muted); }
 
-  /* UI */
-  --radius:    16px;
-  --radius-sm: 10px;
-  --shadow:    0 10px 24px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
-
-  /* Tipografía y ritmo vertical */
-  --fs-xs: .85rem;
-  --fs-sm: .95rem;
-  --fs-md: 1.075rem;
-  --fs-lg: 1.2rem;
-  --fs-h1: clamp(1.9rem, 1.2rem + 2vw, 2.6rem);
-  --fs-h2: clamp(1.4rem, 1rem + 1.3vw, 1.9rem);
-  --fs-h3: clamp(1.2rem, .9rem + .8vw, 1.4rem);
-
-  --space-1: .25rem;
-  --space-2: .5rem;
-  --space-3: .75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-
-  /* Tablas */
-  --row-alt:   rgba(148,163,184,.08);
+/* Tarjetas */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+  gap:clamp(.8rem, 2vw, 1.2rem);
+  align-items:stretch;
+}
+.card{
+  background:var(--panel); border-radius:var(--radius); color:var(--text);
+  box-shadow:var(--shadow); overflow:hidden;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.15); }
+.card__inner{ display:block; color:inherit; text-decoration:none; height:100%; }
+.card__thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:#0b0d10; }
+.card__body{ padding:1rem; display:flex; flex-direction:column; gap:.45rem; }
+.card__title{ font-size:1.05rem; font-weight:750; line-height:1.25; }
+.card__excerpt{ color:var(--muted); font-size:.95rem; line-height:1.4; }
+.card__meta{ display:flex; align-items:center; justify-content:space-between; margin-top:.25rem; }
+.tags{ list-style:none; display:flex; gap:.35rem; padding:0; margin:0; }
+.tags li{
+  font-size:.72rem; padding:.25rem .5rem; border:1px solid rgba(255,255,255,.16);
+  border-radius:999px; color:var(--muted);
 }
 
-html, body {
-  background: var(--bg);
-  color: var(--text);
+/* Botones (para cuando los uses) */
+.btn{
+  display:inline-block; padding:.58rem .9rem; border-radius:999px;
+  background:var(--accent); color:#061016; font-weight:700; text-decoration:none;
+  box-shadow:var(--shadow);
 }
+.btn--ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.18); }
 
-/* --------- Tipografía & links --------- */
-::selection { background: var(--selection); }
-.page__content { font-size: var(--fs-md); line-height: 1.75; }
+/* Enlaces y foco accesible */
+a{ color:var(--link); text-decoration:none; }
+a:focus{ outline:2px dashed var(--link); outline-offset:3px; }
 
-.page__title,
-h1 { font-size: var(--fs-h1); letter-spacing: .2px; }
-h2 { font-size: var(--fs-h2); margin-top: var(--space-6); }
-h3 { font-size: var(--fs-h3); margin-top: var(--space-4); }
-
-a {
-  color: var(--link);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
-  transition: color .2s ease, text-decoration-color .2s ease;
-}
-a:hover { color: var(--link-hover); text-decoration-color: var(--link-hover); }
-
-strong { color: #fff; }
-
-/* --------- Layout global --------- */
-.page,
-.page__inner-wrap,
-.page__content {
-  max-width: 1152px;
-}
-
-.page__footer,
-.page__footer-follow,
-.page__footer-copyright {
-  background: var(--panel);
-  border-top: 1px solid var(--line);
-}
-
-/* --------- Hero / splash --------- */
-.page__hero {
-  border-radius: var(--radius);
-  overflow: clip;
-  box-shadow: var(--shadow);
-}
-.page__hero--overlay .page__title,
-.page__hero--overlay .page__lead {
-  text-shadow: 0 2px 10px rgba(0,0,0,.5);
-}
-
-/* --------- Cards de colección (consultorías) --------- */
-.archive { margin-top: var(--space-4); }
-.grid__item {
-  transition: transform .18s ease, box-shadow .18s ease, background .2s ease;
-}
-.archive__item {
-  background: linear-gradient(180deg, var(--panel), var(--elev));
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: clip;
-  box-shadow: 0 1px 0 rgba(255,255,255,.02) inset, 0 0 0 1px rgba(255,255,255,.02) inset;
-}
-.grid__item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-.archive__item-title {
-  font-size: 1.05rem;
-  line-height: 1.4;
-}
-.archive__item-excerpt { font-size: var(--fs-sm); color: var(--muted); }
-
-/* Teaser responsive con ratio 16:9 */
-.archive__item-teaser {
-  aspect-ratio: 16 / 9;
-  background: #0b1220;
-  display: block;
-  overflow: hidden;
-}
-.archive__item-teaser img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.05);
-  transition: transform .6s ease;
-}
-.grid__item:hover .archive__item-teaser img { transform: scale(1.03); }
-
-/* --------- Chips / etiquetas (áreas, stack, datasets) --------- */
-.chips, .badges, .kpis { display: flex; flex-wrap: wrap; gap: .5rem; }
-.chip, .badge {
-  display: inline-flex; align-items: center; gap: .45rem;
-  padding: .35rem .6rem;
-  border-radius: 999px;
-  background: rgba(125, 211, 252, .12);
-  color: #cfefff;
-  border: 1px solid rgba(125, 211, 252, .25);
-  font-size: .8rem;
-}
-.badge--ok    { background: rgba(34,197,94,.12);  border-color: rgba(34,197,94,.3);  color: #d2f8df; }
-.badge--warn  { background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.3); color: #fde7c5; }
-.badge--muted { background: rgba(148,163,184,.12);border-color: rgba(148,163,184,.25);color: #dbe3ee; }
-
-/* --------- Botones --------- */
-.btn,
-.btn--primary {
-  background: linear-gradient(180deg, var(--brand), var(--brand-2));
-  border: none;
-  color: #072026 !important;
-  font-weight: 700;
-  border-radius: 12px;
-  transition: filter .15s ease, transform .15s ease;
-}
-.btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
-.btn--inverse { background: transparent; border: 1px solid var(--line); color: var(--text); }
-
-/* --------- Filtros simples (chips clicables) --------- */
-#filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: var(--space-4) 0; }
-#filters [data-f] {
-  padding: .4rem .75rem;
-  border-radius: 999px;
-  background: var(--elev);
-  color: var(--text);
-  border: 1px solid var(--line);
-  font-size: .9rem;
-  cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
-}
-#filters [data-f]:hover { background: #162235; border-color: #24324a; }
-
-/* --------- Tablas de datos --------- */
-.page__content table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: .95rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: var(--panel);
-}
-.page__content thead th {
-  position: sticky; top: 0;
-  background: #0e1a2c;
-  color: #dbeafe;
-  font-weight: 700;
-}
-.page__content th, .page__content td {
-  padding: .65rem .8rem;
-  border-bottom: 1px solid var(--line);
-}
-.page__content tbody tr:nth-child(odd) { background: var(--row-alt); }
-
-/* Alineación numérica rápida */
-td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-
-/* --------- Código / pre --------- */
-.page__content code {
-  background: #0f1b2c;
-  color: #e1eaff;
-  border: 1px solid #20324c;
-  padding: .1rem .35rem;
-  border-radius: 6px;
-  font-variant-ligatures: none;
-}
-.page__content pre {
-  background: #0f1b2c;
-  border: 1px solid #20324c;
-  border-radius: var(--radius-sm);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
-}
-
-/* --------- Iframes de visualizaciones --------- */
-.viz {
-  position: relative; width: 100%;
-  padding-top: 56.25%; /* 16:9 */
-  border-radius: var(--radius);
-  overflow: clip;
-  border: 1px solid var(--line);
-  background: #0b1220;
-  box-shadow: var(--shadow);
-}
-.viz > iframe {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  border: 0;
-}
-
-/* --------- Formularios (Contacto) --------- */
-form label { display: grid; gap: .4rem; margin-bottom: .9rem; }
-input, textarea {
-  background: var(--elev);
-  color: var(--text);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: .7rem .85rem;
-  outline: 0;
-  transition: border-color .15s ease, box-shadow .15s ease;
-}
-input:focus, textarea:focus {
-  border-color: rgba(125, 211, 252, .6);
-  box-shadow: 0 0 0 3px rgba(125, 211, 252, .2);
-}
-
-/* --------- Detalles / acordeones --------- */
-details {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: .8rem 1rem;
-}
-details > summary { cursor: pointer; color: var(--link); }
-
-/* --------- Utilidades --------- */
-.muted { color: var(--muted) !important; }
-.center { text-align: center; }
-.kpis { margin: var(--space-3) 0; }
-.kpi {
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .55rem .8rem; border-radius: 12px;
-  background: rgba(45,212,191,.12); border: 1px solid rgba(45,212,191,.25);
-}
-
-/* --------- Animaciones & accesibilidad --------- */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-/* --------- Responsive --------- */
-@media (max-width: 980px) {
-  .page__content { font-size: 1.02rem; }
-  .archive__item-title { font-size: 1rem; }
-}
-
-/* --------- Print (CV/Docs) --------- */
-@media print {
-  a { text-decoration: none; color: #000; }
-  .page__footer, .page__share, .page__comments, .site-nav { display: none !important; }
-  html, body { background: #fff; color: #000; }
-}
+@media (min-width: 720px){ .lede{ font-size:1.18rem; } }
