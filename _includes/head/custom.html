@@ -1,6 +1,6 @@
-<!-- Carga de tipografías y CSS personalizado -->
+<!-- Fuentes + CSS personalizado -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | append: '?v=' | append: site.time | relative_url }}">
