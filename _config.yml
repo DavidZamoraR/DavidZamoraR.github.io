@@ -20,10 +20,12 @@ include:
 search: true
 search_full_content: true
 
+# --- Colección de consultorías como "proyectos" ---
 collections:
   consultorias:
     output: true
-    permalink: /consultorias/:title/
+    permalink: /consultorias/:slug/
+
 
 defaults:
   - scope:
@@ -48,27 +50,6 @@ author:
   bio: "Sociólogo (Univalle) y Especialista en SIG. Consultor en datos y cartografía aplicada a seguridad, elecciones y gestión pública."
 
 encoding: "utf-8"
-
-
-# --- Colección de consultorías como "proyectos" ---
-collections:
-  consultorias:
-    output: true
-    permalink: /consultorias/:slug/
-
-# --- Plugins útiles soportados por GitHub Pages ---
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-feed
-
-# --- Defaults para la colección (no crea layouts nuevos) ---
-defaults:
-  - scope:
-      path: ""
-      type: consultorias
-    values:
-      is_project: true
 
 # --- Opcional: separador de excerpt (primer párrafo) ---
 excerpt_separator: "<!--more-->"
