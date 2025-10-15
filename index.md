@@ -17,9 +17,26 @@ Desarrollo **modelos, cartografías y tableros** para decisión pública: seguri
 [Ver consultorías →](/consultorias/)
 
 ---
+
+### Consultorías recientes
+
+<div class="entries-grid">
+  <div class="grid__wrapper">
+    {% for post in site.consultorias limit:6 %}
+      {% include archive-single.html type="grid" %}
+    {% endfor %}
+  </div>
+</div>
+
+---
+
+{% if site.data.clients %}
+<div class="page__content">
 {% for c in site.data.clients %}
 <img src="{{ c.logo }}" alt="{{ c.name }}" style="height:42px;margin:12px 18px;opacity:.9">
 {% endfor %}
+</div>
+{% endif %}
 
 ---
 
@@ -30,4 +47,3 @@ Desarrollo **modelos, cartografías y tableros** para decisión pública: seguri
 - [Elecciones 2023 – Cali: geovisores y storytelling](/consultorias/2022-elecciones-cali/)
 
 <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
-
